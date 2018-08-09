@@ -57,6 +57,7 @@ class CNNEncoder(OpenChemEncoder):
                 padding_r = conv.kernel_size[0] // 2
                 x = F.pad(x, (0, 0, 0, 0, padding_l, padding_r))
                 x = conv(x)
-            x = F.glu(x, dim=1)
+            x = F.relu(x)
+        print(x.size())
         x = self.rnn(x.transpose(1, 2))
         return x

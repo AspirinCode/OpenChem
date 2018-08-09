@@ -1,9 +1,9 @@
-from models.Smiles2Label import Smiles2Label
-from modules.embeddings.basic_embedding import Embedding
-# from modules.encoders.rnn_encoder import RNNEncoder
-from modules.encoders.cnn_encoder import CNNEncoder
-from modules.mlp.openchem_mlp import OpenChemMLP
-from data.smiles_data_layer import SmilesDataset
+from openchem.models.Smiles2Label import Smiles2Label
+from openchem.modules.embeddings.basic_embedding import Embedding
+from openchem.modules.encoders.cnn_encoder import CNNEncoder
+from openchem.modules.mlp.openchem_mlp import OpenChemMLP
+from openchem.data.smiles_data_layer import SmilesDataset
+from openchem.utils.utils import identity
 
 import torch.nn as nn
 from torch.optim import RMSprop, Adam
@@ -28,7 +28,7 @@ model_params = {
     'max_grad_norm': 10.0,
     'batch_size': 128,
     'num_epochs': 100,
-    'logdir': '/home/mpopova/Work/OpenChem/logs',
+    'logdir': '/home/mpopova/Work/OpenChem/logs/cnn_log',
     'print_every': 1,
     'save_every': 5,
     'train_data_layer': train_dataset,
@@ -58,10 +58,9 @@ model_params = {
     },
     'mlp': OpenChemMLP,
     'mlp_params': {
-        'input_size': 400,
+        'input_size': 200,
         'n_layers': 2,
         'hidden_size': [128, 2],
-        'activation': F.relu,
-        'dropout': 0.8
+        'activation': [F.relu, identity],
     }
 }
