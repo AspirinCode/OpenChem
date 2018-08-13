@@ -22,7 +22,7 @@ def main():
     f = open('/result/test.txt', 'w')
     for i in range(len(names)):
         if names[i] == args.target:
-            write_file(all_data[k], f)
+            write_file(all_data[names[i]], f)
             f.close()
         else:
             write_file(all_data[names[i]], f_2)
