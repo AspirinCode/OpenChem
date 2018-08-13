@@ -11,11 +11,11 @@ from openchem.data.utils import get_tokens
 
 
 class SmilesProteinDataset(Dataset):
-    def __init__(self, filename, tokenized=False, cols_to_read=None,
+    def __init__(self, data, tokenized=False, cols_to_read=None,
                  delimiter=',', mol_tokens=None, prot_tokens=None, pad=True):
         super(SmilesProteinDataset, self).__init__()
         if not tokenized:
-            data = read_smiles_property_file(filename, cols_to_read, delimiter)
+            # data = read_smiles_property_file(filename, cols_to_read, delimiter)
             smiles = data[0]
             proteins = np.array(data[1])
             target = np.array(data[2], dtype='float')
