@@ -18,16 +18,15 @@ def main():
     all_data = pickle.load(open('/data/all_data.pkl', 'rb'))
 
     names = list(all_data.keys())
-    for k in names:
-        f_2 = open('/result/train.txt', 'w')
-        f = open('/result/test.txt', 'w')
-        for i in range(len(names)):
-            if names[i] == args.target:
-                write_file(all_data[k], f)
-                f.close()
-            else:
-                write_file(all_data[names[i]], f_2)
-        f_2.close()
+    f_2 = open('/result/train.txt', 'w')
+    f = open('/result/test.txt', 'w')
+    for i in range(len(names)):
+        if names[i] == args.target:
+            write_file(all_data[k], f)
+            f.close()
+        else:
+            write_file(all_data[names[i]], f_2)
+    f_2.close()
 
 
 if __name__ == '__main__':
