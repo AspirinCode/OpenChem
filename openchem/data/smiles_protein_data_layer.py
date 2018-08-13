@@ -25,12 +25,12 @@ class SmilesProteinDataset(Dataset):
             if pad:
                 clean_smiles, self.mol_lengths = pad_sequences(clean_smiles)
                 proteins, self.prot_lengths = pad_sequences(proteins)
-            self.mol_tokens, self.mol_token2idx, self.mol_num_tokens = \
-                get_tokens(clean_smiles, mol_tokens)
-            self.prot_tokens, self.prot_token2idx, self.prot_num_tokens = \
-                get_tokens(proteins, prot_tokens)
-            clean_smiles = seq2tensor(clean_smiles, self.mol_tokens)
-            proteins = seq2tensor(proteins, self.prot_tokens)
+            mol_tokens, _, _ = get_tokens(clean_smiles, mol_tokens)
+            prot_tokens, _, _ = get_tokens(proteins, prot_tokens)
+            clean_smiles, self.mol_tokens = seq2tensor(clean_smiles, mol_tokens)
+            proteins, self.prot_tokens = seq2tensor(proteins, prot_tokens)
+            self.mol_num_tokens = len(self.mol_tokens)
+            self.prot_num_tokens = len(self.prot_tokens)
             self.molecules = clean_smiles
             self.proteins = proteins
         else:
@@ -42,7 +42,7 @@ class SmilesProteinDataset(Dataset):
             self.prot_num_tokens = len(data['proteins_tokens'])
             self.molecules = data['smiles']
             self.proteins = data['proteins']
-            self.target = data['labels']
+            self.target = data['labels'] 
         assert len(self.molecules) == len(self.proteins)
         assert len(self.molecules) == len(self.target)
 
@@ -56,4 +56,3 @@ class SmilesProteinDataset(Dataset):
                   'mol_length': self.mol_lengths[index],
                   'prot_length': self.prot_lengths[index]}
         return sample
-
