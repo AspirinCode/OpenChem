@@ -18,8 +18,8 @@ def main():
     all_data = pickle.load(open('/data/all_data.pkl', 'rb'))
 
     names = list(all_data.keys())
-    f_2 = open('/result/train.txt', 'w')
-    f = open('/result/test.txt', 'w')
+    f_2 = open('/result/train.csv', 'w')
+    f = open('/result/test.csv', 'w')
     for i in range(len(names)):
         if names[i] == args.target:
             write_file(all_data[names[i]], f)
